@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EYRA - Contact</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="title">EYRA</div>
+    <nav class="main-nav">
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="camera.html" class="nav-link">Live Camera</a>
+        <a href="upload.html" class="nav-link">Upload</a>
+        <a href="bluetooth.html" class="nav-link">Bluetooth</a>
+        <a href="contact.html" class="nav-link" aria-current="page">Contact</a>
+        <a href="login.html" class="nav-link">Login</a>
+      </div>
+      <button class="helpline-btn" onclick="alert('Call 1800-EYRA-HELP')">?</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="compartment white-bg">
+      <h2>Contact Us</h2>
+      <p>Reach out to us with your questions, feedback, or partnership inquiries.</p>
+      <form id="contactForm" style="display:flex; flex-direction: column; gap: 15px; max-width: 500px;">
+        <input type="text" id="name" name="name" placeholder="Your Name" required style="padding:10px; border-radius:8px; border:1px solid var(--gray-light);" />
+        <input type="email" id="email" name="email" placeholder="Your Email" required style="padding:10px; border-radius:8px; border:1px solid var(--gray-light);" />
+        <textarea id="message" name="message" placeholder="Your Message" rows="5" required style="padding:10px; border-radius:8px; border:1px solid var(--gray-light);"></textarea>
+        <button type="submit" style="background: var(--green); color: var(--white); border:none; padding:12px; border-radius:8px; cursor:pointer; font-weight:700;">Send Message</button>
+      </form>
+      <p id="responseMsg" style="margin-top: 15px; font-weight: 600;"></p>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll("a.nav-link").forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        const href = link.getAttribute("href");
+        document.body.classList.add("fade-out");
+        setTimeout(() => window.location.href = href, 300);
+      });
+    });
+
+    const form = document.getElementById('contactForm');
+    const responseMsg = document.getElementById('responseMsg');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      // For demo, just show success message
+      responseMsg.textContent = 'Thank you for contacting us, ' + form.name.value + '!';
+      form.reset();
+    });
+  </script>
+</body>
+</html>

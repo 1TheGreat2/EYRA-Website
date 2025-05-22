@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EYRA - Live Camera</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="title">EYRA</div>
+    <nav class="main-nav">
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="camera.html" class="nav-link" aria-current="page">Live Camera</a>
+        <a href="upload.html" class="nav-link">Upload</a>
+        <a href="bluetooth.html" class="nav-link">Bluetooth</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="login.html" class="nav-link">Login</a>
+      </div>
+      <button class="helpline-btn" onclick="alert('Call 1800-EYRA-HELP')">?</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="compartment green-bg">
+      <h2>Live Camera Feed</h2>
+      <video id="video" autoplay playsinline></video>
+      <p>Point your camera to get real-time scene description (powered by OpenCV & ChatGPT integration).</p>
+    </section>
+  </main>
+
+  <script>
+    // Page fade effect
+    document.querySelectorAll("a.nav-link").forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        const href = link.getAttribute("href");
+        document.body.classList.add("fade-out");
+        setTimeout(() => window.location.href = href, 300);
+      });
+    });
+
+    // Access the device camera and stream to video element
+    async function startCamera() {
+      try {
+        const video = document.getElementById('video');
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+        video.srcObject = stream;
+      } catch (err) {
+        alert('Error accessing camera: ' + err.message);
+      }
+    }
+    startCamera();
+  </script>
+</body>
+</html>

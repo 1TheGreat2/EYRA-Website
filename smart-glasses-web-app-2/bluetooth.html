@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EYRA - Bluetooth</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="title">EYRA</div>
+    <nav class="main-nav">
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="camera.html" class="nav-link">Live Camera</a>
+        <a href="upload.html" class="nav-link">Upload</a>
+        <a href="bluetooth.html" class="nav-link" aria-current="page">Bluetooth</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="login.html" class="nav-link">Login</a>
+      </div>
+      <button class="helpline-btn" onclick="alert('Call 1800-EYRA-HELP')">?</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="compartment green-bg">
+      <h2>Bluetooth Connectivity</h2>
+      <button id="btnConnect">Connect to Device</button>
+      <p id="status">Status: Disconnected</p>
+      <textarea id="log" rows="8" readonly style="width:100%; margin-top:15px; border-radius:8px; padding:10px; background:#f0f0f0;"></textarea>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll("a.nav-link").forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        const href = link.getAttribute("href");
+        document.body.classList.add("fade-out");
+        setTimeout(() => window.location.href = href, 300);
+      });
+    });
+
+    const btnConnect = document.getElementById('btnConnect');
+    const statusEl = document.getElementById('status');
+    const logEl = document.getElementById('log');
+
+    btnConnect.addEventListener('click', async () => {
+      try {
+        statusEl.textContent = 'Status: Connecting...';
+        logEl.value = '';
+        const device = await navigator.bluetooth.requestDevice({
+          filters: [{ services: ['battery_service'] }], // Example filter; replace with your device's service UUID
+          optionalServices: ['battery_service']
+        });
+
+        const server = await device.gatt.connect();
+        statusEl.textContent = `Status: Connected to ${device.name}`;
+        logEl.value += `Connected to device: ${device.name}\n`;
+
+        // You can add reading/writing characteristics here
+
+        device.addEventListener('gattserverdisconnected', () => {
+          statusEl.textContent = 'Status: Disconnected';
+          logEl.value += 'Device disconnected\n';
+        });
+
+      } catch (error) {
+        statusEl.textContent = 'Status: Disconnected';
+        logEl.value += 'Connection failed or cancelled\n';
+      }
+    });
+  </script>
+</body>
+</html>

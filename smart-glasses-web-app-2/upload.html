@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EYRA - Upload</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="title">EYRA</div>
+    <nav class="main-nav">
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="camera.html" class="nav-link">Live Camera</a>
+        <a href="upload.html" class="nav-link" aria-current="page">Upload</a>
+        <a href="bluetooth.html" class="nav-link">Bluetooth</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="login.html" class="nav-link">Login</a>
+      </div>
+      <button class="helpline-btn" onclick="alert('Call 1800-EYRA-HELP')">?</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="compartment white-bg">
+      <h2>Upload Images</h2>
+      <p>Upload an image for AI scene description or text recognition.</p>
+      <input type="file" accept="image/*" id="fileInput" />
+      <div id="imagePreview"></div>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll("a.nav-link").forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        const href = link.getAttribute("href");
+        document.body.classList.add("fade-out");
+        setTimeout(() => window.location.href = href, 300);
+      });
+    });
+
+    const fileInput = document.getElementById('fileInput');
+    const preview = document.getElementById('imagePreview');
+
+    fileInput.addEventListener('change', () => {
+      preview.innerHTML = "";
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(file);
+      img.alt = "Uploaded Image";
+      preview.appendChild(img);
+
+      // Placeholder: Here you can add AI/ChatGPT processing on the uploaded image
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EYRA - Login</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="title">EYRA</div>
+    <nav class="main-nav">
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="camera.html" class="nav-link">Live Camera</a>
+        <a href="upload.html" class="nav-link">Upload</a>
+        <a href="bluetooth.html" class="nav-link">Bluetooth</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="login.html" class="nav-link" aria-current="page">Login</a>
+      </div>
+      <button class="helpline-btn" onclick="alert('Call 1800-EYRA-HELP')">?</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="compartment green-bg">
+      <h2>Login to EYRA</h2>
+      <button id="btnGoogleLogin" style="padding: 10px 20px; font-weight: 700; border-radius: 8px; border: none; cursor: pointer;">Login with Google</button>
+      <p id="loginStatus" style="margin-top: 20px; font-weight: 600;"></p>
+    </section>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script>
+    const btnGoogleLogin = document.getElementById('btnGoogleLogin');
+    const loginStatus = document.getElementById('loginStatus');
+
+    btnGoogleLogin.addEventListener('click', async () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      try {
+        const result = await firebase.auth().signInWithPopup(provider);
+        const user = result.user;
+        loginStatus.textContent = `Welcome, ${user.displayName}!`;
+      } catch (error) {
+        loginStatus.textContent = 'Login failed: ' + error.message;
+      }
+    });
+
+    // Auto detect user logged in on page load
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        loginStatus.textContent = `Welcome back, ${user.displayName}!`;
+      } else {
+        loginStatus.textContent = 'Please log in.';
+      }
+    });
+  </script>
+</body>
+</html>

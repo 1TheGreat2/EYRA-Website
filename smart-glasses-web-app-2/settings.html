@@ -1,0 +1,36 @@
+<body>
+  <h1>Settings</h1>
+  <label><input id="voice" type="checkbox" /> Voice Feedback</label><br>
+  <label><input id="contrast" type="checkbox" /> High Contrast Mode</label><br>
+  <label><input id="scene" type="checkbox" /> Enable Auto Scene</label><br>
+
+  <script type="module">
+    import { auth, db } from "./firebase-config.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+    import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(userRef);
+        const settings = docSnap.data();
+
+        document.getElementById("voice").checked = settings.voiceFeedback;
+        document.getElementById("contrast").checked = settings.highContrast;
+        document.getElementById("scene").checked = settings.autoScene;
+
+        document.querySelectorAll("input").forEach(input => {
+          input.addEventListener("change", async () => {
+            await setDoc(userRef, {
+              voiceFeedback: document.getElementById("voice").checked,
+              highContrast: document.getElementById("contrast").checked,
+              autoScene: document.getElementById("scene").checked
+            });
+          });
+        });
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+  </script>
+</body>

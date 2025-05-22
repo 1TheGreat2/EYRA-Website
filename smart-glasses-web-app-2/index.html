@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EYRA - Smart Glasses</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="title">EYRA</div>
+    <nav class="main-nav">
+      <div class="nav-links">
+        <a href="index.html" class="nav-link" aria-current="page">Home</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="camera.html" class="nav-link">Live Camera</a>
+        <a href="upload.html" class="nav-link">Upload</a>
+        <a href="bluetooth.html" class="nav-link">Bluetooth</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="login.html" class="nav-link">Login</a>
+      </div>
+      <button class="helpline-btn" onclick="alert('Call 1800-EYRA-HELP')">?</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero-section">
+      <div class="hero-text">
+        <h1>Welcome to EYRA</h1>
+        <div class="tagline">A New Vision for the Future</div>
+        <div class="subtagline">Empowering the visually impaired through innovation</div>
+      </div>
+      <div class="hero-image">
+        <img src="images/glasses.svg" alt="Smart Glasses Illustration" />
+      </div>
+    </section>
+
+    <section class="compartment green-bg">
+      <h2>What is EYRA?</h2>
+      <p>EYRA is an inclusive technology brand building the world's most accessible smart glasses. Designed to empower visually impaired individuals, our glasses describe scenes, read out texts, and provide intelligent real-world interactions using AI, ChatGPT, and OpenCV.</p>
+    </section>
+
+    <section class="compartment white-bg">
+      <h2>Our Journey</h2>
+      <p>Started as a science project by passionate innovators, EYRA evolved into a mission to help people gain their independence. We believe that everyone deserves to experience the world with clarity and confidence.</p>
+    </section>
+
+    <section class="compartment green-bg">
+      <h2>Catchy Slogans</h2>
+      <p>"Wear the Future."</p>
+      <p>"See Beyond Limits."</p>
+      <p>"Tech That Talks."</p>
+      <p>"The World, Narrated."</p>
+    </section>
+
+    <section class="compartment white-bg about-section">
+      <h2>Minimal Design, Maximum Impact</h2>
+      <p>With a clean interface, intuitive layout, and bold CMF-inspired visuals, EYRA ensures users never feel lost. Simple, powerful, beautiful.</p>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll("a.nav-link").forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        const href = link.getAttribute("href");
+        document.body.classList.add("fade-out");
+        setTimeout(() => window.location.href = href, 300);
+      });
+    });
+  </script>
+</body>
+</html>
